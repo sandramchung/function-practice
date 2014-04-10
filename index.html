@@ -95,9 +95,13 @@
 
           var remainder = dollars;
 
+          // counter to help me iterate over the monies array
+
+          var i = 0;
+
           //iterate over the array, dividing by bill or coin value and storing quantity of bill or coin along with bill or coin name in change
 
-          for (i = 0; i < monies.length; i++) {
+          while (remainder !==0) {
             var money = monies[i];
             var value = money[1];
             var quantity = Math.floor(remainder / value);
@@ -106,6 +110,7 @@
               change[billName] = quantity;
             }
             remainder = remainder - quantity * value;
+            i++;
           }
           return change;
         }
@@ -125,7 +130,6 @@
         });
 
         function pluralize(noun, number) {
-          // check if number is 1
           // if number is 1, don't add an s; otherwise, add an s
           if (number !== 1) {
             noun += 's';
@@ -162,6 +166,28 @@
           'Fight Club,1999,791186',
           'Star Wars: Episode V - The Empire Strikes Back,1980,503348'
         ];
+
+        var parsedMovies = [];
+
+        // splits the movie list values into name, year and votes
+        // takes an array of strings containing values delimited by commas
+        // returns 2d array of values
+
+        function parseMovies(movies) {
+          for (var i = 0; i < movies.length; i++) {
+            parsedMovies.push(movieList[i].split(','));
+          }
+          parsedMovies = sortYear(parsedMovies);
+          return parsedMovies;
+        }
+
+        // sorts movie list by second value in array
+        function sortYear(films) {
+          films.sort(function(a,b) {
+            return a[1].parseInt - b[1].parseInt;
+          });
+        }
+
 
         createExample('Movie Parsing', {
           description: "Given the following comma separated list of IMDb top \
