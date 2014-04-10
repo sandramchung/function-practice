@@ -39,10 +39,23 @@
           ]
         });
 
+        function reverseText(phrase) {
+          // create a variable that holds the reversed phrase
+          var esarhp = "";
+          //iterate over phrase starting at the end and rebuild the phrase one character at a time in reverse
+          if (phrase === null) {
+            return null;
+          }
+          for (var i = phrase.length - 1; i >= 0; i--) {
+            esarhp += phrase[i];
+          }
+          return esarhp;
+        }
+
         createExample('Reverse Text', {
           description: 'Create a function that reverses the characters in \
             a string',
-          implementation: null,
+          implementation: reverseText,
           validation: [
             {
               input: 'test value',
@@ -59,12 +72,52 @@
           ]
         });
 
+        function changeMaker(dollars) {
+          // array that stores name and value of bill or coin
+
+          var billValues = [
+            ['hundreds', 100],
+            ['fifties', 50],
+            ['twenties', 20],
+            ['tens', 10],
+            ['fives', 5],
+            ['ones', 1],
+            ['quarters', .25],
+            ['dimes', .10],
+            ['nickels', .05],
+            ['pennies', .01]
+          ]
+
+          // store 
+          var change = {};
+
+          // store the value of the remainder after dividing by bill or coin value
+
+          var remainder = dollars;
+
+          // counter to iterate over the array
+          var i = 0;
+
+          //iterate over the array, dividing by bill or coin value and storing the whole number quotient in the array and 
+          while (remainder !== 0) {
+            var value = change [i][1];
+            var quantity = remainder % value;
+            if (quantity > 0){
+              var billName = billNumbers[i][0];
+              change[billName] = quantity;
+            }
+            remainder = remainder - quantity * value;
+            i++;
+          }
+          return change;
+        }
+
         createExample('Tender Change', {
           description: 'Write a function that given a dollar amount returns \
             the change in bills and coins. For instance, given \
             <code>7.23</code> it should return: \
             <pre>{ fives: 1, ones: 2, dimes: 2, pennies: 3 }</pre>',
-          implementation: null,
+          implementation: changeMaker,
           validation: [
             {
               input: 7.23,
