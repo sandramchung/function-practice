@@ -75,7 +75,7 @@
         function changeMaker(dollars) {
           // array that stores name and value of bill or coin
 
-          var billValues = [
+          var monies = [
             ['hundreds', 100],
             ['fifties', 50],
             ['twenties', 20],
@@ -86,28 +86,26 @@
             ['dimes', .10],
             ['nickels', .05],
             ['pennies', .01]
-          ]
+          ];
 
-          // store 
+          // store bill or coin name and quantity
           var change = {};
 
           // store the value of the remainder after dividing by bill or coin value
 
           var remainder = dollars;
 
-          // counter to iterate over the array
-          var i = 0;
+          //iterate over the array, dividing by bill or coin value and storing quantity of bill or coin along with bill or coin name in change
 
-          //iterate over the array, dividing by bill or coin value and storing the whole number quotient in the array and 
-          while (remainder !== 0) {
-            var value = change [i][1];
-            var quantity = remainder % value;
+          for (i = 0; i < monies.length; i++) {
+            var money = monies[i];
+            var value = money[1];
+            var quantity = Math.floor(remainder / value);
             if (quantity > 0){
-              var billName = billNumbers[i][0];
+              var billName = money[0];
               change[billName] = quantity;
             }
             remainder = remainder - quantity * value;
-            i++;
           }
           return change;
         }
@@ -121,16 +119,25 @@
           validation: [
             {
               input: 7.23,
-              output: { fives: 1, ones: 2, dimes: 2, pennies: 5 }
+              output: { fives: 1, ones: 2, dimes: 2, pennies: 3 }
             }
           ]
         });
+
+        function pluralize(noun, number) {
+          // check if number is 1
+          // if number is 1, don't add an s; otherwise, add an s
+          if (number !== 1) {
+            noun += 's';
+          }
+          return number + ' ' + noun;
+        }
 
         createExample('The Pluralizer', {
           description: 'Write a function that takes two arguments, a noun \
             and a number, and returns the number and the noun in pluralized \
             form (for instance, "1 dog", "5 cats")',
-          implementation: null,
+          implementation: pluralize,
           validation: [
             {
               input: ['dog', 1],
