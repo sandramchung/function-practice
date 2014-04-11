@@ -95,9 +95,13 @@
 
           var remainder = dollars;
 
+          // counter to help me iterate over the monies array
+
+          var i = 0;
+
           //iterate over the array, dividing by bill or coin value and storing quantity of bill or coin along with bill or coin name in change
 
-          for (i = 0; i < monies.length; i++) {
+          while (remainder !==0) {
             var money = monies[i];
             var value = money[1];
             var quantity = Math.floor(remainder / value);
@@ -106,6 +110,7 @@
               change[billName] = quantity;
             }
             remainder = remainder - quantity * value;
+            i++;
           }
           return change;
         }
@@ -186,7 +191,7 @@
             "</pre> create a function that splits the values into the title, \
             year, and number of votes and returns a list of movie objects \
             sorted by year.",
-          implementation: null
+          implementation: parseMovies
         });
       });
     </script>
