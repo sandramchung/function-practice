@@ -95,13 +95,9 @@
 
           var remainder = dollars;
 
-          // counter to help me iterate over the monies array
-
-          var i = 0;
-
           //iterate over the array, dividing by bill or coin value and storing quantity of bill or coin along with bill or coin name in change
 
-          while (remainder !==0) {
+          for (i = 0; i < monies.length; i++) {
             var money = monies[i];
             var value = money[1];
             var quantity = Math.floor(remainder / value);
@@ -110,7 +106,6 @@
               change[billName] = quantity;
             }
             remainder = remainder - quantity * value;
-            i++;
           }
           return change;
         }
