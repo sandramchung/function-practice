@@ -162,21 +162,61 @@
           'Star Wars: Episode V - The Empire Strikes Back,1980,503348'
         ];
 
-        var parsedMovies = [];
+        // for validation
+        var parsedMovies = [
+          { name: '12 Angry Men', year: 1957, votes: 255846 }, 
+          { name: 'The Godfather', year: 1972, votes: 732416 }, 
+          { name: 'The Godfather: Part II', year: 1974, votes: 474640 }, 
+          { name: 'Star Wars: Episode V - The Empire Strikes Back', year: 1980, votes: 503348 }, 
+          { name: 'Schindler\'s List', year: 1993, votes: 528900 }, 
+          { name: 'The Shawshank Redemption', year: 1994, votes: 1043071 }, 
+          { name: 'Pulp Fiction', year: 1994, votes: 806431 }, 
+          { name: 'Fight Club', year: 1999, votes: 791186 }, 
+          { name: 'The Lord of the Rings: The Return of the King', year: 2003, votes: 738931 }, 
+          { name: 'The Dark Knight', year: 2008, votes: 1017508 }
+        ]
+
+
+
 
         // splits the movie list values into name, year and votes
         // takes an array of strings containing values delimited by commas
-        // returns 2d array of values
+        // returns array of movie objects sorted by year
 
         function parseMovies(movies) {
-          for (var i = 0; i < movies.length; i++) {
-            parsedMovies.push(movieList[i].split(','));
+          
+          if(typeof(movies)==='undefined') {
+            movies = movieList;
           }
-          // parsedMovies = sortYear(parsedMovies);
-          return parsedMovies.sort(function(a,b) {
-            return a[1]-b[1];
-          });
+        
+        // stores parsed and sorted movie objects
+
+        var movieObjects = [];
+
+         for (var i = 0; i < movies.length; i++) {
+            var splitMovie = movies[i].split(',');
+            movieObjects.push({
+              name: splitMovie[0],
+              year: splitMovie[1],
+              votes: splitMovie[2]
+            });
+          }
+          return movieObjects.sort(sortFunction);
         }
+
+        function sortFunction(a,b) {
+          return a.year - b.year;
+        }
+
+        // generates validation output
+
+        function validationOutput(movieObjects) {
+          for (var j = 0; j < movieObjects.length; j++) {
+              var movie = movieObjects[j];
+              document.write("{ name: '" + movie.name + "', year: " + movie.year + ", votes: " + movie.votes + " }, <br/>");
+            }
+          }
+
 
 
         createExample('Movie Parsing', {
@@ -186,7 +226,13 @@
             "</pre> create a function that splits the values into the title, \
             year, and number of votes and returns a list of movie objects \
             sorted by year.",
-          implementation: parseMovies
+          implementation: parseMovies,
+          validation: [
+            {
+              input: movieList,
+              output: parsedMovies
+            },
+          ]
         });
       });
     </script>
