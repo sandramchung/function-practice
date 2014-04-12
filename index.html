@@ -167,20 +167,34 @@
           'Star Wars: Episode V - The Empire Strikes Back,1980,503348'
         ];
 
-        var parsedMovies = [];
+
+        var movieObjects =[];
 
         // splits the movie list values into name, year and votes
         // takes an array of strings containing values delimited by commas
-        // returns 2d array of values
+        // returns array of movie objects sorted by year
 
-        function parseMovies(movies) {
-          for (var i = 0; i < movies.length; i++) {
-            parsedMovies.push(movieList[i].split(','));
+        function parseMovies(movies, parsed) {
+          if(typeof(movies)==='undefined') {
+            movies = movieList;
           }
-          // parsedMovies = sortYear(parsedMovies);
-          return parsedMovies.sort(function(a,b) {
-            return a[1]-b[1];
-          });
+          if(typeof(parsed)==='undefined') {
+            parsed = movieObjects;
+          }
+         for (var i = 0; i < movies.length; i++) {
+            var splitMovie = movies[i].split(',');
+            console.log(splitMovie); // debug focus on split(',') output
+            parsed.push({
+              name: splitMovie[0],
+              year: splitMovie[1],
+              votes: splitMovie[2]
+            });
+          }
+          return parsed.sort(sortFunction);
+        }
+
+        function sortFunction(a,b) {
+          return a.year - b.year;
         }
 
 
